@@ -21,12 +21,13 @@ if (Meteor.isClient) {
 Meteor.methods({
   importDutch: function(words){
     words.forEach(function(tuple){
-      // console.log("tuple.gsx$nl.$t = ", tuple.gsx$nl.$t);
-      // console.log("tuple.gsx$en.$t = ", tuple.gsx$en.$t);
+      var nl = tuple.gsx$nl.$t;
+      var en = tuple.gsx$en.$t;
+      if (en !== "I") en = en.toLowerCase();
       // check if english word is valid using /usr/share/dict/words
       DutchEnglishDict.insert({
-        nl: tuple.gsx$nl.$t,
-        en: tuple.gsx$en.$t
+        nl: nl,
+        en: en
       });
     });
   }
