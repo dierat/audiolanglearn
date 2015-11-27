@@ -4,9 +4,17 @@
 
 <body>
   {{> hello}}
+
+  {{> words}}
 </body>
 
 <template name="hello">
   <input type="text" id="text" />
   <button> Speak it </button>
+</template>
+
+<template name="words">
+  {{#each words}}
+    <p>{{en}} {{nl}}</p>
+  {{/each}}
 </template>

@@ -14,4 +14,10 @@ if (Meteor.isClient) {
       responsiveVoice.speak(text, Session.get('targetLang'));
     }
   });
+
+  Template.words.helpers({
+    words: function(){
+      return DutchEnglishDict.find();
+    }
+  });
 }
