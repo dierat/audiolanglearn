@@ -33,10 +33,8 @@ if (Meteor.isClient) {
       else {
         // Finds number of cards currently in play,
         const usersDeckCount = UsersDeck.find({user_id: Meteor.userId()}).count();
-        console.log("usersDeckCount = ", usersDeckCount);
         // then gets the next card from the DutchEnglishDict.
         const waiting_card = DutchEnglishDict.find({order: usersDeckCount});
-        console.log("waiting_card = ", waiting_card);
         // If there was a card in the DutchEnglishDict, return it.
         if (waiting_card.count()) return waiting_card;
         else {
