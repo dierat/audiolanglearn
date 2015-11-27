@@ -23,6 +23,28 @@ if (Meteor.isClient) {
   });
 
   Template.words.helpers({
-    words: ()=> DutchEnglishDict.find()
+    words: function () {
+      const date = new Date();
+      // Find the cards in the UsersDeck that have a timestamp earlier than now,
+      // sort them in ascending order, and take the first one (if there is one)
+      let ref_card = UsersDeck.findOne({user_id: Meteor.userId(), time: {$lt: date}}, {sort: {time: 1}});
+      // If there was a card with a timestamp earlier than now, return it.
+      if (ref_card) return DutchEnglishDict.find({_id: ref_card.card_id});
+      else {
+        // Finds number of cards currently in play,
+        const usersDeckCount = UsersDeck.find({user_id: Meteor.userId()}).count();
+        console.log("usersDeckCount = ", usersDeckCount);
+        // then gets the next card from the DutchEnglishDict.
+        const waiting_card = DutchEnglishDict.find({order: usersDeckCount});
+        console.log("waiting_card = ", waiting_card);
+        // If there was a card in the DutchEnglishDict, return it.
+        if (waiting_card.count()) return waiting_card;
+        else {
+          // Otherwise, get the card in the user's card with the oldest timestamp.
+          ref_card = UsersDeck.findOne({user_id: Meteor.userId()}, {sort: {time: 1}});
+          if (ref_card) return DutchEnglishDict.find({_id: ref_card.card_id});
+        }
+      }
+    }
   });
 }
