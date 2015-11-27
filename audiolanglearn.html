@@ -19,6 +19,14 @@
 
 <template name="words">
   {{#each words}}
-    <p>{{order}}: {{nl}} {{en}}</p>
+    <p>{{nl}}</p>
+
+    {{#if showMeaning}}
+      <p>{{en}}</p>
+    {{/if}}
+
+    {{#if showCongratulations}}
+      That's correct!
+    {{/if}}
   {{/each}}
 </template>

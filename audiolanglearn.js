@@ -2,6 +2,9 @@ UsersDeck = new Mongo.Collection("userDeck");
 
 if (Meteor.isClient) {
   Meteor.startup(()=> {
+    Session.setDefault('correct', false);
+    Session.setDefault('incorrect', false);
+
     Session.set('targetLang', 'Dutch Female');
     Session.set('sourceLang', 'US English Female');
   });
@@ -45,6 +48,14 @@ if (Meteor.isClient) {
           if (ref_card) return DutchEnglishDict.find({_id: ref_card.card_id});
         }
       }
-    }
+    },
+    showMeaning: function(){
+      const userHasntSeenIt = !UsersDeck.findOne({
+        user_id: Meteor.userId(),
+        card_id: this._id
+      });
+      return Session.get("incorrect") || userHasntSeenIt;
+    },
+    showCongratulations: ()=> Session.get('correct'),
   });
 }
