@@ -3,9 +3,13 @@
 </head>
 
 <body>
+  {{> loginButtons}}
+
   {{> hello}}
 
-  {{> words}}
+  {{#if currentUser}}
+    {{> words}}
+  {{/if}}
 </body>
 
 <template name="hello">
