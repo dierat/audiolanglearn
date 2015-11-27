@@ -23,6 +23,8 @@ if (Meteor.isClient) {
   });
 
   Template.words.helpers({
+    // TODO: change this to accept the names of the collections for all the
+    // cards and for the users cards
     words: function () {
       const date = new Date();
       // Find the cards in the UsersDeck that have a timestamp earlier than now,
