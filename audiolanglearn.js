@@ -1,3 +1,5 @@
+UserDeck = new Mongo.Collection("userDeck");
+
 if (Meteor.isClient) {
   Meteor.startup(()=> {
     Session.set('targetLang', 'Dutch Female');
