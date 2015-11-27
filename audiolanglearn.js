@@ -1,9 +1,14 @@
-UserDeck = new Mongo.Collection("userDeck");
+UsersDeck = new Mongo.Collection("userDeck");
 
 if (Meteor.isClient) {
   Meteor.startup(()=> {
     Session.set('targetLang', 'Dutch Female');
     Session.set('sourceLang', 'US English Female');
+  });
+
+  // Login requires username instead of e-mail address for easier testing.
+  Accounts.ui.config({
+    passwordSignupFields: "USERNAME_ONLY"
   });
 
   Template.hello.onRendered(()=> {
