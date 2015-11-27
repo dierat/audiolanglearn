@@ -18,6 +18,7 @@ if (Meteor.isClient) {
 
 Meteor.methods({
   importDutch: (words)=> {
+    let counter = 0;
     words.forEach(function(tuple){
       const nl = tuple.gsx$nl.$t;
       let en = tuple.gsx$en.$t;
@@ -25,8 +26,10 @@ Meteor.methods({
       // check if english word is valid using /usr/share/dict/words
       DutchEnglishDict.insert({
         nl: nl,
-        en: en
+        en: en,
+        order: counter
       });
+      counter++;
     });
   }
 });
