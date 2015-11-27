@@ -6,13 +6,9 @@ const url = "https://spreadsheets.google.com/feeds/list/" + dutchwordsSpreadshee
 
 
 if (Meteor.isClient) {
-  Meteor.startup(function () {
-
-    if (DutchEnglishDict.find().count() === 0){
-      $.getJSON( url, (data)=> Meteor.call('importDutch', data.feed.entry) );
-    }
-
-  });
+  getDutch = ()=> {
+    $.getJSON( url, (data)=> Meteor.call('importDutch', data.feed.entry) );
+  };
 }
 
 
@@ -31,5 +27,6 @@ Meteor.methods({
       });
       counter++;
     });
-  }
+  },
+  emptyDutch: ()=> DutchEnglishDict.remove({})
 });
